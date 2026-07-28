@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rock Paper Scissors</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body data-result="{{ sound }}">
+    <div class="container">
+
+        <h1>🎮 Rock Paper Scissors</h1>
+
+        <!-- Score Board -->
+
+        <div class="scoreboard">
+
+            <div class="score">
+                <p>👤 You</p>
+                <h2>{{ user_score }}</h2>
+            </div>
+
+            <div class="score">
+                <p>💻 Computer</p>
+                <h2>{{ computer_score }}</h2>
+            </div>
+
+        </div>
+
+        <p class="subtitle">Play Against Computer</p>
+
+        <!-- Game Form -->
+
+        <form action="/play" method="POST">
+
+            {% if not name %}
+
+            <input
+            type="text"
+            name="name"
+            placeholder="Enter Your Name"
+            required>
+
+            {% else %}
+
+            <h2>👋 Welcome {{ name }}</h2>
+
+            {% endif %}
+
+            <h2>Choose Your Move</h2>
+
+        <div class="choices">
+
+    <button type="submit" name="choice" value="rock">
+
+        <img src="{{ url_for('static', filename='images/rock.png') }}">
+
+        <span>Rock</span>
+
+    </button>
+
+    <button type="submit" name="choice" value="paper">
+
+        <img src="{{ url_for('static', filename='images/paper.png') }}">
+
+        <span>Paper</span>
+
+    </button>
+
+    <button type="submit" name="choice" value="scissors">
+
+        <img src="{{ url_for('static', filename='images/scissors.png') }}">
+
+        <span>Scissors</span>
+
+    </button>
+
+</div>
+
+        </form>
+
+        <!-- Result -->
+
+        {% if result %}
+
+        <div class="result">
+
+            <h2>{{ result }}</h2>
+
+            <hr>
+
+            <p><strong>👤 Player :</strong> {{ name }}</p>
+
+            <p><strong>🧍 Your Choice :</strong> {{ user }}</p>
+
+            <p><strong>💻 Computer Choice :</strong> {{ computer }}</p>
+
+        </div>
+
+        {% endif %}
+
+        <!-- Reset Score Button -->
+
+        <a href="/reset">
+
+            <button class="reset">
+
+                🔄 Reset Score
+
+            </button>
+
+        </a>
+
+    </div>
+
+<!-- ================= RULES PANEL ================= -->
+
+<div class="rules">
+
+    <h2>📜 Game Rules</h2>
+
+    <ul>
+
+        <li>🪨 Rock beats Scissors</li>
+
+        <li>📄 Paper beats Rock</li>
+
+        <li>✂️ Scissors beats Paper</li>
+
+        <li>🤝 Same Choice = Draw</li>
+
+        <li>🏆 Win = +1 Score</li>
+
+        <li>💻 Computer also gets points</li>
+
+    </ul>
+
+</div>
+
+
+<audio id="winSound">
+    <source src="{{ url_for('static', filename='sounds/win.mp3') }}" type="audio/mpeg">
+</audio>
+
+<audio id="loseSound">
+    <source src="{{ url_for('static', filename='sounds/lose.mp3') }}" type="audio/mpeg">
+</audio>
+
+<audio id="drawSound">
+    <source src="{{ url_for('static', filename='sounds/draw.mp3') }}" type="audio/mpeg">
+</audio>
+
+
+
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+</body>
+
+</html>
